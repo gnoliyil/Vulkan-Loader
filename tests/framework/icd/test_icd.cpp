@@ -375,13 +375,20 @@ VKAPI_ATTR VkResult VKAPI_CALL test_vkGetPhysicalDeviceSurfacePresentModesKHR(Vk
     return VK_SUCCESS;
 }
 
-//// stubs
 // 1.0
-VKAPI_ATTR void VKAPI_CALL test_vkGetPhysicalDeviceFeatures(VkPhysicalDevice physicalDevice, VkPhysicalDeviceFeatures* pFeatures) {}
+VKAPI_ATTR void VKAPI_CALL test_vkGetPhysicalDeviceFeatures(VkPhysicalDevice physicalDevice, VkPhysicalDeviceFeatures* pFeatures) {
+    *pFeatures = icd.GetPhysDevice(physicalDevice).features;
+}
 VKAPI_ATTR void VKAPI_CALL test_vkGetPhysicalDeviceProperties(VkPhysicalDevice physicalDevice,
-                                                              VkPhysicalDeviceProperties* pProperties) {}
-VKAPI_ATTR void VKAPI_CALL test_vkGetPhysicalDeviceMemoryProperties(VkPhysicalDevice physicalDevice,
-                                                                    VkPhysicalDeviceMemoryProperties* pMemoryProperties) {}
+                                                              VkPhysicalDeviceProperties* pProperties) {
+    *pProperties = icd.GetPhysDevice(physicalDevice).properties;
+}
+VKAPI_ATTR
+void VKAPI_CALL test_vkGetPhysicalDeviceMemoryProperties(VkPhysicalDevice physicalDevice,
+                                                         VkPhysicalDeviceMemoryProperties* pMemoryProperties) {
+    *pMemoryProperties = icd.GetPhysDevice(physicalDevice).memory_properties;
+}
+//// stubs
 VKAPI_ATTR void VKAPI_CALL test_vkGetPhysicalDeviceSparseImageFormatProperties(VkPhysicalDevice physicalDevice, VkFormat format,
                                                                                VkImageType type, VkSampleCountFlagBits samples,
                                                                                VkImageUsageFlags usage, VkImageTiling tiling,
